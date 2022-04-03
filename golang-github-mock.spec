@@ -15,13 +15,14 @@ GoMock is a mocking framework for the Go programming language.}
                         sample/README.md
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        GoMock is a mocking framework for the Go programming language
 
 # Upstream license specification: Apache-2.0
 License:        ASL 2.0
 URL:            %{gourl}
 Source0:        %{gosource}
+BuildArch: noarch
 
 %description
 %{common_description}
@@ -35,29 +36,18 @@ Source0:        %{gosource}
 %go_generate_buildrequires
 
 %build
-for cmd in mockgen; do
-  %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/$cmd
-done
 
 %install
 %gopkginstall
-install -m 0755 -vd                     %{buildroot}%{_bindir}
-install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
 %if %{with check}
 %check
 %gocheck -d github.com/golang/mock/mockgen
 %endif
 
-%files
-%license LICENSE
-%doc AUTHORS CONTRIBUTING.md CONTRIBUTORS README.md sample/README.md
-%{_bindir}/*
-
 %gopkgfiles
 
 %changelog
+%autochangelog
 * Fri Apr 01 2022 laiot <carmelo.sarta.main@gmail.com> - 1.6.0-1
 - Initial package
-%autochangelog
-%autorelease
