@@ -49,5 +49,3 @@ BuildArch: noarch
 
 %changelog
 %autochangelog
-* Fri Apr 01 2022 laiot <carmelo.sarta.main@gmail.com> - 1.6.0-1
-- Initial package
